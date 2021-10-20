@@ -1,0 +1,9 @@
+<html>
+    <body>
+        <p>{{$name}}!</p>
+        <br>
+        <p>{{$cellphone}}</p>
+        <br>
+        <p>{{$message}}</p>
+    </body>
+</html>

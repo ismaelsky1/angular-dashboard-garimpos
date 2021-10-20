@@ -1,0 +1,94 @@
+<div nz-row [nzGutter]="15">
+  <div nz-col nzSpan="20">
+    <label>Nome</label>
+    <input nz-input>
+  </div>
+  <div nz-col nzSpan="2" style="padding-top: 20px;text-align: right">
+    <button nz-button nzType="dashed">Limpar</button>
+  </div>
+  <div nz-col nzSpan="2" style="padding-top: 20px;text-align: right">
+    <button nz-button nzType="primary" (click)="openModal()">
+      <i nz-icon nzType="plus" nzTheme="outline"></i> Novo
+    </button>
+  </div>
+</div>
+
+<div nz-row>
+  <div nz-col nzSpan="24">
+    <nz-table style="margin-top: 15px" [nzShowPagination]="false" [nzData]="cities" [nzLoading]="loadingDataGrid">
+      <thead>
+      <tr>
+        <th nzShowSort nzSortKey="name" nzWidth="50%">Nome</th>
+        <th nzShowSort nzSortKey="name" nzWidth="10%">UF</th>
+        <th nzWidth="15%" nzAlign="center">Ações</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of cities">
+        <td>{{ item.name }}</td>
+        <td>{{ item.state.initials }}</td>
+        <td nzAlign="center">
+          <a (click)="show(item.id)"><i nz-icon nzType="eye" nzTheme="outline"></i> Editar</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a class="color-danger"
+             nz-popconfirm
+             nzPopconfirmTitle="Confirma a exclusão do registro?"
+             nzPopconfirmPlacement="bottom"
+             (nzOnConfirm)="delete(item.id)"><i nz-icon nzType="delete" nzTheme="outline"></i> Excluir
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<nz-modal nzWidth="50%" [(nzVisible)]="modal.isVisibled" [nzTitle]="modal.title" (nzOnCancel)="closeModal()">
+  <form nz-form [formGroup]="formModal">
+    <div nz-row [nzGutter]="5">
+      <div nz-col [nzSpan]="3">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe o Nome de Fantasia!">
+            <nz-form-label>Código</nz-form-label>
+            <input nz-input type="text" formControlName="code">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="13">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a Razão Social!">
+            <nz-form-label>Nome</nz-form-label>
+            <input nz-input type="text" formControlName="name">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="4">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a Razão Social!">
+            <nz-form-label>Ativo</nz-form-label>
+            <nz-select formControlName="active">
+              <nz-option [nzValue]="true" nzLabel="Sim"></nz-option>
+              <nz-option [nzValue]="false" nzLabel="Não"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="4">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a Razão Social!">
+            <nz-form-label>UF</nz-form-label>
+            <nz-select formControlName="state_id">
+                <nz-option *ngFor="let item of states" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="closeModal()">Cancelar</button>
+    <button nz-button nzType="primary" (click)="submitFormModal()" [nzLoading]="modal.loading">Salvar</button>
+  </div>
+</nz-modal>
+

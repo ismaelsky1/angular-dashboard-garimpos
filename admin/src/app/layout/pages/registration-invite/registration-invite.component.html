@@ -1,0 +1,58 @@
+<nz-layout>
+  <div nz-row class="bg-registration">
+    <div nz-col nzSpan="8" nzOffset="15">
+      <form nz-row nzGutter="5" class="form-registration" autocomplete="off" nz-form [formGroup]="registrationForm" (ngSubmit)="doRegistration()">
+        <img src="../../../../assets/images/logo-text-gray.jpg" style="margin: 0 auto;display: block"/>
+        <p>Para aceitar o convite preencha os dados abaixo.</p>
+        <nz-form-item nz-col nzSpan="24">
+          <nz-form-control>
+            <nz-input-group nzPrefixIcon="user">
+              <input type="text" nz-input formControlName="name" placeholder="Seu nome" />
+            </nz-input-group>
+            <span *ngFor="let validation of accountValidationMessages.name" class="color-red" >
+                <span *ngIf="registrationForm.get('name').hasError(validation.type) && (registrationForm.get('name').dirty || registrationForm.get('name').touched)">{{validation.message}}</span>
+            </span>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item nz-col nzSpan="12">
+          <nz-form-control>
+            <nz-input-group nzPrefixIcon="mobile">
+              <input type="text" nz-input formControlName="cellphone" placeholder="Seu celular" />
+            </nz-input-group>
+            <span *ngFor="let validation of accountValidationMessages.cellphone" class="color-red">
+                <span *ngIf="registrationForm.get('cellphone').hasError(validation.type) && (registrationForm.get('cellphone').dirty || registrationForm.get('cellphone').touched)">{{validation.message}}</span>
+            </span>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item nz-col nzSpan="12">
+          <nz-form-control>
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input formControlName="password" placeholder="Sua senha" />
+            </nz-input-group>
+            <span *ngFor="let validation of accountValidationMessages.password" class="color-red">
+                <span *ngIf="registrationForm.get('password').hasError(validation.type) && (registrationForm.get('password').dirty || registrationForm.get('password').touched)">{{validation.message}}</span>
+            </span>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <label nz-checkbox formControlName="terms">Declaro ter lido e aceito os <a>Termos de uso</a>.</label>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-alert nzType="error" [nzMessage]="alertError" *ngIf="alertError"></nz-alert>
+        </nz-form-item>
+
+        <nz-form-item class="text-center">
+          <nz-form-control>
+            <button nz-button class="login-form-button" [nzType]="'primary'" nzBlock [disabled]="registrationForm.invalid">
+              Enviar
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </div>
+</nz-layout>

@@ -1,0 +1,49 @@
+<nz-layout>
+  <div nz-row class="bg-login">
+    <div nz-col nzSpan="7" nzOffset="15">
+      <form class="form-login" nz-form [formGroup]="loginForm" (ngSubmit)="doLogin()">
+        <img src="../../../../assets/images/logo.png" style="margin: 0 auto;display: block"/>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe o campo login!">
+            <nz-radio-group formControlName="type" [nzButtonStyle]="'solid'"  style="width: 100%">
+              <label nz-radio-button nzValue="COMPANY" style="width: 50%">Empresa</label>
+              <label nz-radio-button nzValue="CONSULTANT" style="width: 50%">Consultor</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe o campo login!">
+            <nz-input-group nzPrefixIcon="mail">
+              <input type="text" nz-input formControlName="email" placeholder="Email" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe o campo senha!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input formControlName="password" placeholder="Senha" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-alert nzType="error" [nzMessage]="alertError" *ngIf="alertError"></nz-alert>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control>
+            <a class="login-form-forgot" class="login-form-forgot">Esqueceu a senha?</a>
+            <button nz-button class="login-form-button" [nzType]="'primary'" nzBlock [disabled]="loginForm.invalid">
+              Entrar
+            </button>
+            Ou
+            <a routerLink="/registration">Registre-se!</a>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </div>
+</nz-layout>

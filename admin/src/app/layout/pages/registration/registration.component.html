@@ -1,0 +1,82 @@
+<nz-layout>
+  <div nz-row class="bg-registration">
+    <div nz-col nzSpan="7" nzOffset="15">
+      <form class="form-registration" autocomplete="off" nz-form [formGroup]="registrationForm" (ngSubmit)="doRegistration()">
+        <img src="../../../../assets/images/logo.png" style="margin: 0 auto;display: block"/>
+
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group nzPrefixIcon="user">
+              <input type="text" nz-input formControlName="name" placeholder="Seu nome" />
+            </nz-input-group>
+            <span *ngFor="let validation of accountValidationMessages.name" class="color-red" >
+                <span *ngIf="registrationForm.get('name').hasError(validation.type) && (registrationForm.get('name').dirty || registrationForm.get('name').touched)">{{validation.message}}</span>
+            </span>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group nzPrefixIcon="mail">
+              <input type="text" nz-input formControlName="email" placeholder="Seu e-mail" />
+            </nz-input-group>
+            <span *ngFor="let validation of accountValidationMessages.email" class="color-red">
+                <span *ngIf="registrationForm.get('email').hasError(validation.type) && (registrationForm.get('email').dirty || registrationForm.get('email').touched)">{{validation.message}}</span>
+            </span>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group nzPrefixIcon="mobile">
+              <input type="text" nz-input formControlName="cellphone" placeholder="Seu celular" />
+            </nz-input-group>
+            <span *ngFor="let validation of accountValidationMessages.cellphone" class="color-red">
+                <span *ngIf="registrationForm.get('cellphone').hasError(validation.type) && (registrationForm.get('cellphone').dirty || registrationForm.get('cellphone').touched)">{{validation.message}}</span>
+            </span>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group nzPrefixIcon="briefcase">
+              <nz-radio-group formControlName="type">
+                <label nz-radio nzValue="COMPANY">Ofertante</label>
+                <label nz-radio nzValue="CONSULTANT">Consultor</label>
+              </nz-radio-group>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input formControlName="password" placeholder="Sua senha" />
+            </nz-input-group>
+            <span *ngFor="let validation of accountValidationMessages.password" class="color-red">
+                <span *ngIf="registrationForm.get('password').hasError(validation.type) && (registrationForm.get('password').dirty || registrationForm.get('password').touched)">{{validation.message}}</span>
+            </span>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <label nz-checkbox formControlName="terms">Declaro ter lido e aceito os <a>Termos de uso</a>.</label>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-alert nzType="error" [nzMessage]="alertError" *ngIf="alertError"></nz-alert>
+        </nz-form-item>
+
+        <nz-form-item class="text-center">
+          <nz-form-control>
+            <button nz-button class="login-form-button" [nzType]="'primary'" nzBlock [disabled]="registrationForm.invalid">
+              Cadastre-se
+            </button>
+            Já tem uma conta?
+            <a routerLink="/login">Faça login!</a>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </div>
+</nz-layout>

@@ -1,0 +1,65 @@
+<div nz-row [nzGutter]="15">
+  <div nz-col nzSpan="20">
+    <label>Descrição</label>
+    <input nz-input>
+  </div>
+  <div nz-col nzSpan="2" style="padding-top: 20px;text-align: right">
+    <button nz-button nzType="dashed">Limpar</button>
+  </div>
+  <div nz-col nzSpan="2" style="padding-top: 20px;text-align: right">
+    <button nz-button nzType="primary" (click)="openModal()">
+      <i nz-icon nzType="plus" nzTheme="outline"></i> Novo
+    </button>
+  </div>
+</div>
+
+<div nz-row>
+  <div nz-col nzSpan="24">
+    <nz-table style="margin-top: 15px" [nzShowPagination]="false" [nzData]="salaries" [nzLoading]="loadingDataGrid">
+      <thead>
+        <tr>
+          <th nzShowSort nzSortKey="name" nzWidth="60%">Descrição</th>
+          <th nzWidth="10%" nzAlign="center">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of salaries">
+          <td>{{ item.name }}</td>
+          <td nzAlign="center">
+            <a (click)="show(item.id)"><i nz-icon nzType="eye" nzTheme="outline"></i> Editar</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a class="color-danger"
+               nz-popconfirm
+               nzPopconfirmTitle="Confirma a exclusão do registro?"
+               nzPopconfirmPlacement="bottom"
+               (nzOnConfirm)="delete(item.id)"><i nz-icon nzType="delete" nzTheme="outline"></i> Excluir
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+
+<nz-modal nzWidth="50%" [(nzVisible)]="modal.isVisibled" [nzTitle]="modal.title" (nzOnCancel)="closeModal()">
+
+  <form nz-form [formGroup]="formModal">
+    <div nz-row [nzGutter]="5">
+      <div nz-col [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a Razão Social!">
+            <nz-form-label>Descrição</nz-form-label>
+            <input nz-input type="text" formControlName="name" [maxlength]="20">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="closeModal()">Cancelar</button>
+    <button nz-button nzType="primary" (click)="submitFormModal()" [nzLoading]="modal.loading">Salvar</button>
+  </div>
+</nz-modal>
+

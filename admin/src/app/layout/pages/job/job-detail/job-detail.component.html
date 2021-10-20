@@ -1,0 +1,190 @@
+<h1 nz-title>{{job?.title}}</h1>
+
+<nz-tag [nzColor]="'green'" *ngIf="job?.active">Aberta</nz-tag>
+<nz-tag [nzColor]="'red'" *ngIf="!job?.active">Finalizada</nz-tag>
+
+Criado em: {{job?.created_at | date: 'dd/MM/yyyy'}}
+<nz-divider nzType="vertical"></nz-divider>
+Expira em: {{job?.created_at | date: 'dd/MM/yyyy'}}
+
+<div class="card-container">
+  <div class="card-item" *ngFor="let step of job?.job_step" >
+    <nz-card nzTitle="{{step.sequence}} - {{step.name}}" [nzExtra]="plusAction">
+      <ng-template #plusAction>
+        <i nz-icon class="header-icon" nzType="plus-circle" nzTheme="outline" (click)="addNewStep(job.id, step.sequence)"></i>
+        <i nz-icon class="header-icon" nzType="delete" nzTheme="outline" (click)="removeStep(job.id, step.id)"></i>
+      </ng-template>
+      <nz-list *ngFor="let step_candidate of step.job_step_candidate">
+        <nz-list-item
+          *ngFor="let candidate of step_candidate.candidates"
+          [nzActions]="[viewAction, actions]">
+          {{candidate.name}}
+          <ng-template #viewAction>
+            <i nz-icon nzType="eye" nzTheme="outline" (click)="openModalCandidate(candidate.id)"></i>
+          </ng-template>
+          <ng-template #actions>
+            <a nz-dropdown [nzDropdownMenu]="menu">
+              Enviar para...
+              <i nz-icon nzType="down"></i>
+            </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item *ngFor="let step of job?.job_step" (click)="changeCandidateNextStep(step_candidate, step.id)">{{step.name}}</li>
+                <li nz-menu-divider></li>
+                <li nz-menu-item style="color: red">Rejeitar candidato</li>
+              </ul>
+            </nz-dropdown-menu>
+          </ng-template>
+        </nz-list-item>
+      </nz-list>
+    </nz-card>
+  </div>
+</div>
+
+<div nz-row [nzGutter]="5" class="job-detail">
+  <div nz-col [nzSpan]="24">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-form-label>Palavras chaves</nz-form-label>
+        <nz-col nzSpan="24">
+          <nz-tag [nzColor]="'#108ee9'" *ngFor="let key_word of job?.key_words">{{key_word}}</nz-tag>
+        </nz-col>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="8">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-form-label>
+          <strong>Intervalo Idade</strong>
+        </nz-form-label>
+      </nz-form-control>
+      Entre {{job?.age_range_start}} e {{job?.age_range_end}} anos
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="8">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-form-label>
+          <strong>Intervalo peso (Kg)</strong>
+        </nz-form-label>
+      </nz-form-control>
+      Entre {{job?.age_weight_start}} e {{job?.age_weight_end}} Kg
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="8">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-form-label>
+          <strong>Intervalo altura (m)</strong>
+        </nz-form-label>
+      </nz-form-control>
+      Entre {{job?.age_height_start}} e {{job?.age_height_end}} metros
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="8">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-form-label>
+          <strong>Gênero</strong>
+        </nz-form-label>
+      </nz-form-control>
+      <span *ngIf="job?.gender == 'M'">Masculino</span>
+      <span *ngIf="job?.gender == 'F'">Feminio</span>
+      <span *ngIf="!job?.gender">Todos</span>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="8">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-form-label>
+          <strong>Remuneração</strong>
+        </nz-form-label>
+      </nz-form-control>
+      {{job?.salary?.name}}
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="8">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-form-label>
+          <strong>Carga Horária</strong>
+        </nz-form-label>
+      </nz-form-control>
+      {{job?.work_hour?.name}}
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-form-label>
+          <strong>Características Humanas</strong>
+        </nz-form-label>
+      </nz-form-control>
+      {{job?.human_characteristics}}
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-form-label>
+          <strong>Características Técnicas</strong>
+        </nz-form-label>
+      </nz-form-control>
+      {{job?.technical_characteristics}}
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-form-label>
+          <strong>Experiências</strong>
+        </nz-form-label>
+      </nz-form-control>
+      {{job?.experiences}}
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-form-label>
+          <strong>Observações</strong>
+        </nz-form-label>
+      </nz-form-control>
+      {{job?.observations}}
+    </nz-form-item>
+  </div>
+</div>
+
+<nz-modal nzWidth="50%" [(nzVisible)]="modal.isVisibled" [nzTitle]="candidate?.name" (nzOnCancel)="closeModalCandidate()">
+  <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'">
+    <nz-tab [nzTitle]="'Dados Básicos'">
+      <div nz-row [nzGutter]="5">
+        <div nz-col [nzSpan]="3">
+          <nz-avatar nzIcon="user" [nzSize]="70" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+        </div>
+        <div nz-col [nzSpan]="15">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label>Nome </nz-form-label>
+              {{candidate?.name}}
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-form-label>CPF</nz-form-label>
+              {{candidate?.document}}
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </nz-tab>
+    <nz-tab [nzTitle]="'Experiências Profissionais'"></nz-tab>
+    <nz-tab [nzTitle]="'Habilidades'"></nz-tab>
+  </nz-tabset>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="closeModalCandidate()">Cancelar</button>
+  </div>
+</nz-modal>

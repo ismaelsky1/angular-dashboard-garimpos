@@ -1,0 +1,142 @@
+<div nz-row [nzGutter]="8">
+  <div nz-col [nzSpan]="24" class="text-center">
+    <h1 class="big-hello">Olá, Michel! Estamos quase lá...</h1>
+    <p class="hello-info">Agora você só precisa preencher algumas informações e escolher seu plano.</p>
+  </div>
+</div>
+<div nz-row [nzGutter]="8">
+  <div nz-col [nzSpan]="16" [nzOffset]="4">
+    <nz-card>
+      <div nz-row [nzGutter]="8">
+          <form nz-form [formGroup]="paymentForm" (ngSubmit)="finalize()" autocomplete="off">
+
+            <div nz-row [nzGutter]="30">
+              <div nz-col [nzSpan]="12" style="border-right: 1px solid #eee;">
+                <nz-form-item>
+                  <nz-form-control>
+                    <nz-form-label [nzSpan]="24">Como deseja utilizar nossa plataforma?</nz-form-label>
+                    <nz-radio-group formControlName="type" [nzSize]="'small'" [nzButtonStyle]="'solid'" style="width: 100%; text-align: center">
+                      <label nz-radio-button nzValue="B" style="width: 50%;">
+                        Como comprador
+                      </label>
+                      <label nz-radio-button nzValue="S" style="width: 50%">
+                        Como fornecedor
+                      </label>
+                    </nz-radio-group>
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="email">Qual nome da sua empresa?</nz-form-label>
+                  <nz-form-control [nzSpan]="24">
+                    <input nz-input name="email" type="email" id="email">
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="email">Qual seu tipo de negócio?</nz-form-label>
+                  <nz-form-control [nzSpan]="24">
+                    <label nz-radio nzValue="A">Pessoa Jurídica</label>
+                    <label nz-radio nzValue="B">Pessoa Física</label>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="email">Informe seu CPF?</nz-form-label>
+                  <nz-form-control [nzSpan]="24">
+                    <input nz-input name="email" type="email">
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="email">Quantos funcionários você tem?</nz-form-label>
+                  <nz-input-number [nzMin]="1" [nzStep]="1"></nz-input-number>
+                </nz-form-item>
+              </div>
+
+              <div nz-col [nzSpan]="12">
+
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="email">Selecione o número de usuários</nz-form-label>
+
+                  <div style="margin-top: 50px">
+                    <nz-slider [nzMax]="200" [nzMin]="1"></nz-slider>
+                    <h2>Plano de R$ 59,90, com x usuários</h2>
+                  </div>
+                </nz-form-item>
+
+                <nz-form-item>
+                  <nz-divider nzText="Dados para pagamento (Cartão de Crédito)" nzOrientation="left"></nz-divider>
+
+                  <div nz-row [nzGutter]="15">
+                    <div nz-col [nzSpan]="24">
+                      <label>Número do Cartão</label>
+                      <input nz-input name="email" type="text" placeholder="Digite somente números">
+                    </div>
+                    <div nz-col [nzSpan]="24">
+                      <label>Titular do Cartão</label>
+                      <input nz-input name="email" type="text" placeholder="Digite conforme impresso no cartão">
+                    </div>
+                    <div nz-col [nzSpan]="7">
+                      <label>Mês de Validade</label>
+                      <nz-select nzPlaceHolder="MM">
+                      <nz-option nzLabel="01" nzValue="01"></nz-option>
+                      <nz-option nzLabel="02" nzValue="02"></nz-option>
+                      <nz-option nzLabel="03" nzValue="03"></nz-option>
+                      <nz-option nzLabel="04" nzValue="04"></nz-option>
+                      <nz-option nzLabel="05" nzValue="05"></nz-option>
+                      <nz-option nzLabel="06" nzValue="06"></nz-option>
+                      <nz-option nzLabel="07" nzValue="07"></nz-option>
+                      <nz-option nzLabel="08" nzValue="08"></nz-option>
+                      <nz-option nzLabel="09" nzValue="09"></nz-option>
+                      <nz-option nzLabel="10" nzValue="10"></nz-option>
+                      <nz-option nzLabel="11" nzValue="11"></nz-option>
+                      <nz-option nzLabel="12" nzValue="12"></nz-option>
+                    </nz-select>
+                    </div>
+                    <div nz-col [nzSpan]="7">
+                      <label>Ano</label>
+                      <nz-select nzPlaceHolder="AA">
+                        <nz-option nzLabel="20" nzValue="20"></nz-option>
+                        <nz-option nzLabel="21" nzValue="02"></nz-option>
+                        <nz-option nzLabel="22" nzValue="03"></nz-option>
+                        <nz-option nzLabel="23" nzValue="04"></nz-option>
+                        <nz-option nzLabel="24" nzValue="05"></nz-option>
+                        <nz-option nzLabel="25" nzValue="06"></nz-option>
+                        <nz-option nzLabel="26" nzValue="07"></nz-option>
+                        <nz-option nzLabel="27" nzValue="08"></nz-option>
+                        <nz-option nzLabel="28" nzValue="09"></nz-option>
+                        <nz-option nzLabel="29" nzValue="10"></nz-option>
+                        <nz-option nzLabel="30" nzValue="11"></nz-option>
+                        <nz-option nzLabel="31" nzValue="12"></nz-option>
+                        <nz-option nzLabel="32" nzValue="12"></nz-option>
+                        <nz-option nzLabel="33" nzValue="12"></nz-option>
+                        <nz-option nzLabel="34" nzValue="12"></nz-option>
+                        <nz-option nzLabel="35" nzValue="12"></nz-option>
+                        <nz-option nzLabel="36" nzValue="12"></nz-option>
+                        <nz-option nzLabel="37" nzValue="12"></nz-option>
+                        <nz-option nzLabel="38" nzValue="12"></nz-option>
+                        <nz-option nzLabel="39" nzValue="12"></nz-option>
+                        <nz-option nzLabel="40" nzValue="12"></nz-option>
+                      </nz-select>
+                    </div>
+                    <div nz-col [nzSpan]="8" [nzOffset]="2">
+                      <label>Código de Segurança</label>
+                      <input nz-input name="email" type="email" placeholder="3 ou 4 dígitos">
+                    </div>
+                  </div>
+                </nz-form-item>
+
+              </div>
+            </div>
+
+            <div nz-row [nzGutter]="5">
+              <div nz-col [nzSpan]="8" [nzOffset]="8" style="padding-top: 20px">
+                <nz-form-item>
+                  <button nz-button nzType="primary" nzBlock >Finalizar</button>
+                </nz-form-item>
+              </div>
+            </div>
+          </form>
+        </div>
+    </nz-card>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div nz-row [nzGutter]="15">
+  <div nz-col nzSpan="11">
+    <label>Nome</label>
+    <input nz-input>
+  </div>
+  <div nz-col nzSpan="5">
+    <label>CPF/CNPJ</label>
+    <input nz-input>
+  </div>
+  <div nz-col nzSpan="4">
+    <label>Ativo</label>
+    <nz-select>
+      <nz-option nzValue="true">Sim</nz-option>
+      <nz-option nzValue="false">Não</nz-option>
+    </nz-select>
+  </div>
+  <div nz-col nzSpan="2" style="padding-top: 20px;text-align: right">
+    <button nz-button nzType="dashed">Limpar</button>
+  </div>
+  <div nz-col nzSpan="2" style="padding-top: 20px;text-align: right">
+    <button nz-button nzType="primary" (click)="openModal()">
+      <i nz-icon nzType="plus" nzTheme="outline"></i> Novo
+    </button>
+  </div>
+</div>
+
+<div nz-row>
+  <div nz-col nzSpan="24">
+    <nz-table style="margin-top: 15px" [nzData]="candidates" [nzShowPagination]="false" [nzLoading]="loadingDataGrid">
+      <thead>
+        <tr>
+          <th nzShowSort nzSortKey="name" nzWidth="40%">Nome completo</th>
+          <th nzShowSort nzSortKey="name" nzWidth="20%">Contatos</th>
+          <th nzShowSort nzSortKey="name" nzWidth="15%">Cadastrado em</th>
+          <th nzShowSort nzSortKey="name" nzWidth="10%">Ativo</th>
+          <th nzWidth="15%" nzAlign="center">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of candidates">
+          <td>
+            <strong>{{ item.name }}</strong><br/>
+            {{ item.document }}
+          </td>
+          <td>
+            {{ item.telphone }}<br/>
+            {{ item.email }}
+          </td>
+          <td>{{ item.created_at | date: 'dd/MM/yyy' }}</td>
+          <td>
+            <nz-tag nzColor="green" *ngIf="item.active">ATIVO</nz-tag>
+            <nz-tag nzColor="red" *ngIf="!item.active">INATIVO</nz-tag>
+          </td>
+          <td nzAlign="center">
+            <a [routerLink]="['/job-detail']">
+              <i nz-icon nzType="eye" nzTheme="outline"></i> Abrir
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+

@@ -1,0 +1,23 @@
+.card-container{
+  background-color: #eee;
+  margin: 5px;
+  padding: 5px;
+  width: 100%;
+  display: flex;
+  overflow-x: scroll;
+  align-content: space-between;
+}
+.card-item{
+  margin: 0 5px;
+  min-width: 400px;
+  max-width: 400px;
+  flex: 1;
+}
+.card-item .header-icon{
+  margin: 0 5px;
+}
+
+.job-detail nz-form-item{
+  border: 1px solid #ddd;
+  padding: 5px;
+}

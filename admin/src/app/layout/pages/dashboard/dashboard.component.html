@@ -1,0 +1,119 @@
+<div nz-row nzGutter="15" style="margin-bottom: 15px">
+  <div nz-col [nzSpan]="11"></div>
+
+  <div nz-col [nzSpan]="4">
+    <nz-select
+      nzPlaceHolder="Filtrar por"
+      nzAllowClear
+      nzShowSearch
+      [nzServerSearch]="true"
+      style="width: 100%"
+    >
+      <nz-option [nzValue]="'today'" [nzLabel]="'Hoje'"></nz-option>
+    </nz-select>
+  </div>
+  <div nz-col [nzSpan]="7">
+    <nz-range-picker nzFormat="dd/MM/yyyy"></nz-range-picker>
+  </div>
+  <div nz-col [nzSpan]="2">
+    <button nz-button nzType="primary" nzLoading>
+      <i nz-icon nzType="search"></i> Filtrar
+    </button>
+  </div>
+</div>
+
+<div nz-row nzGutter="15" style="margin-bottom: 15px">
+  <div nz-col nzSpan="6">
+    <nz-card>
+      <nz-skeleton [nzActive]="true" [nzLoading]="opportunityLoading" [nzAvatar]="{ size: 'large' }" [nzParagraph]="{rows: 1}">
+        <div class="icon-header">
+          <i nz-icon nzType="user" class="bg-orange"></i>
+        </div>
+        <h3>15022</h3>
+        <p>Candidatos</p>
+        <p><i nz-icon nzType="arrow-up" class="text-green"></i> 30% acima</p>
+      </nz-skeleton>
+    </nz-card>
+  </div>
+
+  <div nz-col nzSpan="6">
+    <nz-card>
+      <nz-skeleton [nzActive]="true" [nzLoading]="contactLoading" [nzAvatar]="{ size: 'large' }" [nzParagraph]="{rows: 1}">
+        <div class="icon-header">
+          <i nz-icon nzType="shop" class="bg-blue"></i>
+        </div>
+        <h3>200</h3>
+        <p>Ofertantes</p>
+        <p><i nz-icon nzType="arrow-up" class="text-green"></i> 30% acima</p>
+      </nz-skeleton>
+    </nz-card>
+  </div>
+
+  <div nz-col nzSpan="6">
+    <nz-card>
+      <nz-skeleton [nzActive]="true" [nzLoading]="proposalLoading" [nzAvatar]="{ size: 'large' }" [nzParagraph]="{rows: 1}">
+        <div class="icon-header">
+          <i nz-icon nzType="usergroup-add" class="bg-purple"></i>
+        </div>
+        <h3>500</h3>
+        <p>Consultores</p>
+        <p><i nz-icon nzType="arrow-up" class="text-green"></i> 30% acima</p>
+      </nz-skeleton>
+    </nz-card>
+  </div>
+
+  <div nz-col nzSpan="6">
+    <nz-card>
+      <nz-skeleton [nzActive]="true" [nzLoading]="saleLoading" [nzAvatar]="{ size: 'large' }" [nzParagraph]="{rows: 1}">
+        <div class="icon-header">
+          <i nz-icon nzType="form" class="bg-green"></i>
+        </div>
+        <h3>589</h3>
+        <p>Contratações</p>
+        <p><i nz-icon nzType="arrow-down" class="text-danger"></i> 30% abaixo</p>
+      </nz-skeleton>
+    </nz-card>
+  </div>
+
+</div>
+
+<div nz-row nzGutter="15">
+  <div nz-col nzSpan="22">
+    <h4>Últimas vagas cadastradas</h4>
+  </div>
+  <div nz-col nzSpan="2">
+    <button nz-button nzType="default">Ver todas</button>
+  </div>
+  <div nz-col nzSpan="24">
+    <nz-table #filterTable [nzShowPagination]="false" [nzData]="lastSubscriptions" style="margin-top: 15px">
+      <thead nzSingleSort>
+        <tr>
+          <th nzShowSort nzSortKey="name" nzWidth="20%">Candidato</th>
+          <th nzShowSort nzSortKey="store" nzWidth="20%">Ofertante</th>
+          <th nzShowSort nzSortKey="value" nzWidth="35%">Vaga</th>
+          <th nzShowSort nzSortKey="status" nzWidth="15%">Cadastrado em</th>
+          <th nzShowSort nzSortKey="status" nzWidth="15%">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of filterTable.data">
+          <td>
+            <strong>{{ item.candidate.name }}</strong>
+          </td>
+          <td>{{ item.company.name }}</td>
+          <td>{{ item.cbo.description }}</td>
+          <td>{{ item.created_at | date : 'dd/MM/yyyy' }}</td>
+          <td>
+            <nz-tag [nzColor]="'green'" *ngIf="item.status == 'CONFIRMED'">CONFIRMADA</nz-tag>
+            <nz-tag [nzColor]="'orange'" *ngIf="item.status == 'PENDENT'">PENDENTE</nz-tag>
+            <nz-tag [nzColor]="'orange'" *ngIf="item.status == 'CANCELED'">REJEITADA</nz-tag>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+
+
+

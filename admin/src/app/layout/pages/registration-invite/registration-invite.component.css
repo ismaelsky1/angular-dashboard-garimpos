@@ -1,0 +1,32 @@
+.bg-registration{
+  background-image: url("../../../../assets/images/bg-login.png");
+  background-position: 20% center;
+  background-repeat: no-repeat;
+  background-size: 40%;
+  height: 100%;
+}
+
+.form-registration{
+  border-radius: 4px;
+  padding: 0 30px;
+  background: #fff;
+  width: 100%;
+  box-shadow: 1px 1px 7px 0px rgba(0,0,0,0.1);
+  float: left;
+}
+
+.form-registration img{
+  padding-top: 30px;
+  padding-bottom: 30px;
+  width: 190px;
+}
+
+nz-layout{
+  padding: 0;
+  background-color: transparent;
+}
+
+.color-red{
+  color:red;
+  font-size: 12px;
+}

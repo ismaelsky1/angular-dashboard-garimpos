@@ -1,0 +1,186 @@
+<div nz-row [nzGutter]="15">
+  <div nz-col nzSpan="4">
+    <label>Ativo</label>
+    <nz-select [(ngModel)]="filter.active" style="width: 100%">
+      <nz-option nzLabel="Sim" nzValue="s"></nz-option>
+      <nz-option nzLabel="Não" nzValue="n"></nz-option>
+    </nz-select>
+  </div>
+  <div nz-col nzSpan="4">
+    <label>Remuneração</label>
+    <nz-select [(ngModel)]="filter.active" style="width: 100%">
+      <nz-option nzLabel="Sim" nzValue="s"></nz-option>
+      <nz-option nzLabel="Não" nzValue="n"></nz-option>
+    </nz-select>
+  </div>
+  <div nz-col nzSpan="4">
+    <label>Carga Horária</label>
+    <nz-select [(ngModel)]="filter.active" style="width: 100%">
+      <nz-option nzLabel="Sim" nzValue="s"></nz-option>
+      <nz-option nzLabel="Não" nzValue="n"></nz-option>
+    </nz-select>
+  </div>
+  <div nz-col nzSpan="4">
+    <label>Gênero</label>
+    <nz-select [(ngModel)]="filter.active" style="width: 100%">
+      <nz-option nzLabel="Sim" nzValue="s"></nz-option>
+      <nz-option nzLabel="Não" nzValue="n"></nz-option>
+    </nz-select>
+  </div>
+  <div nz-col nzSpan="2" style="padding-top: 20px">
+    <button nz-button nzType="primary">
+      <i nz-icon nzType="search"></i> Buscar
+    </button>
+  </div>
+  <div nz-col nzSpan="2" style="padding-top: 20px">
+    <button nz-button nzType="dashed">Limpar</button>
+  </div>
+  <div nz-col nzSpan="4" style="padding-top: 20px;text-align: right">
+    <button nz-button nzType="primary" (click)="openModal()">
+      <i nz-icon nzType="plus" nzTheme="outline"></i> Novo
+    </button>
+  </div>
+</div>
+
+<div nz-row>
+  <div nz-col nzSpan="24">
+    <nz-table style="margin-top: 15px" [nzData]="jobs" [nzShowPagination]="false" [nzLoading]="loadingDataGrid">
+      <thead>
+        <tr>
+          <th nzWidth="30%">Título</th>
+          <th nzShowSort nzSortKey="name" nzWidth="15%">Criado em</th>
+          <th nzShowSort nzSortKey="name" nzWidth="10%">Expira em</th>
+          <th nzShowSort nzSortKey="active" nzWidth="5%">Ativo</th>
+          <th nzWidth="10%" nzAlign="center">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of jobs">
+          <td>
+            {{ item.title }}<br/>
+            <strong>Palavras chaves</strong><br/>
+            <nz-tag [nzColor]="'#108ee9'" *ngFor="let key_word of item.key_words">{{key_word}}</nz-tag>
+          </td>
+          <td>{{ item.created_at | date: 'dd/MM/yyy' }}</td>
+          <td>
+            {{ item.expirate_at | date: 'dd/MM/yyy'  }}
+            <nz-divider nzType="vertical"></nz-divider>
+            Restam x dias
+          </td>
+          <td>
+            <nz-switch [(ngModel)]="item.active" nzSize="small" [nzLoading]="jobSwitchActive" (click)="changeActive(item)"></nz-switch>
+          </td>
+          <td nzAlign="center">
+            <a [routerLink]="['/job-detail', item.id]"><i nz-icon nzType="eye" nzTheme="outline"></i> Abrir</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+
+<nz-modal nzWidth="50%" [(nzVisible)]="modal.isVisibled" [nzTitle]="modal.title" (nzOnCancel)="closeModal()">
+
+  <form nz-form [formGroup]="formModal">
+    <div nz-row [nzGutter]="5">
+      <div nz-col [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a Razão Social!">
+            <nz-form-label>Título</nz-form-label>
+            <input nz-input type="text" formControlName="title">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a Razão Social!">
+            <nz-form-label>Ocupação</nz-form-label>
+            <nz-select formControlName="cbo_id">
+              <nz-option *ngFor="let item of cbos" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a Razão Social!">
+            <nz-form-label>Salário</nz-form-label>
+            <nz-select formControlName="state_id">
+              <nz-option *ngFor="let item of salaries" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a Razão Social!">
+            <nz-form-label>Carga Horária</nz-form-label>
+            <nz-select formControlName="state_id">
+              <nz-option *ngFor="let item of workHours" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="4">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a Razão Social!">
+            <nz-form-label>Gênero</nz-form-label>
+            <nz-select formControlName="gender">
+              <nz-option [nzValue]="'M'" nzLabel="Masculino"></nz-option>
+              <nz-option [nzValue]="'F'" nzLabel="Feminino"></nz-option>
+              <nz-option [nzValue]="'O'" nzLabel="Outros"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a Razão Social!">
+            <nz-form-label>Características Humanas</nz-form-label>
+            <textarea nz-input formControlName="human_characteristics"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a Razão Social!">
+            <nz-form-label>Características Técnicas</nz-form-label>
+            <textarea nz-input type="text" formControlName="technical_characteristics"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a Razão Social!">
+            <nz-form-label>Experiências</nz-form-label>
+            <textarea nz-input type="text" formControlName="experiences"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a Razão Social!">
+            <nz-form-label>Observações</nz-form-label>
+            <textarea nz-input type="text" formControlName="observations"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a Razão Social!">
+            <nz-form-label>Ativo</nz-form-label>
+            <nz-select formControlName="active">
+              <nz-option [nzValue]="true" nzLabel="Sim"></nz-option>
+              <nz-option [nzValue]="false" nzLabel="Não"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="closeModal()">Cancelar</button>
+    <button nz-button nzType="primary" (click)="submitFormModal()" [nzLoading]="modal.loading">Salvar</button>
+  </div>
+</nz-modal>
